@@ -1,131 +1,86 @@
-import Image from '../assets/Mask group.png';
+import Image from '../assets/img.png';
 import scenesArray from './ScenesArray';
 import { Pannellum } from 'pannellum-react';
-import * as React from 'react';
+import React, { useState, useRef } from 'react';
 import ImageMapper from 'react-image-mapper';
 
-function TestBox(_props) {
-	const [currentScene, setCurrentScene] = React.useState(0);
-	const [imgCoords, setImgCoords] = React.useState('');
-	const [yaw, setYaw] = React.useState(0);
-	const [pitch, setPitch] = React.useState(0);
-	const [sceneImg, setSceneImg] = React.useState(scenesArray[currentScene].scenePanoImg);
-	const panImage = React.useRef(null);
+function TestBox() {
+	const [currentScene, setCurrentScene] = useState(0);
+	const [yaw, setYaw] = useState(0);
+	const [pitch, setPitch] = useState(0);
+	const panImage = useRef(null);
+
 	const hotspotIcon = (hotSpotDiv) => {
 		const image = document.createElement('img');
 		image.classList.add('image');
 		image.setAttribute('width', '30');
 		image.setAttribute('height', '30');
-		image.setAttribute('src', 'https://img.icons8.com/material/4ac144/256/camera.png');
+		image.setAttribute('src', 'https://i.postimg.cc/cHDx7cdb/image.png');
 		hotSpotDiv.appendChild(image);
 	};
+
 	const map = {
 		name: 'my-map',
 		areas: [
-			{
-				name: '0',
-				shape: 'circle',
-				coords: [270, 200, 5],
-				preFillColor: 'blue',
-			},
-			{
-				name: '1',
-				shape: 'circle',
-				coords: [110, 150, 5],
-				preFillColor: 'blue',
-			},
-			{
-				name: '2',
-				shape: 'circle',
-				coords: [200, 138, 5],
-				preFillColor: 'blue',
-			},
-			{
-				name: '3',
-				shape: 'circle',
-				coords: [260, 120, 5],
-				preFillColor: 'blue',
-			},
-			{
-				name: '4',
-				shape: 'circle',
-				coords: [350, 165, 5],
-				preFillColor: 'blue',
-			},
-			{
-				name: '5',
-				shape: 'circle',
-				coords: [230, 165, 5],
-				preFillColor: 'blue',
-			},
-			{
-				name: '6',
-				shape: 'circle',
-				coords: [330, 103, 5],
-				preFillColor: 'blue',
-			},
-			{
-				name: '7',
-				shape: 'circle',
-				coords: [262, 30, 5],
-				preFillColor: 'blue',
-			},
-			{
-				name: '8',
-				shape: 'circle',
-				coords: [330, 265, 5],
-				preFillColor: 'red',
-			},
-			{
-				name: '9',
-				shape: 'circle',
-				coords: [330, 230, 5],
-				preFillColor: 'red',
-			},
-			{
-				name: '10',
-				shape: 'circle',
-				coords: [330, 200, 5],
-				preFillColor: 'red',
-			},
-			{
-				name: '11',
-				shape: 'circle',
-				coords: [255, 265, 5],
-				preFillColor: 'red',
-			},
+			{ name: '0', shape: 'circle', coords: [205, 220, 7], preFillColor: 'blue' },
+			{ name: '1', shape: 'circle', coords: [280, 220, 7], preFillColor: 'blue' },
+			{ name: '2', shape: 'circle', coords: [280, 185, 7], preFillColor: 'blue' },
+			{ name: '3', shape: 'circle', coords: [280, 155, 7], preFillColor: 'blue' },
+			{ name: '4', shape: 'circle', coords: [270, 75, 7], preFillColor: 'blue' },
+			{ name: '5', shape: 'circle', coords: [210, 80, 7], preFillColor: 'blue' },
+			{ name: '6', shape: 'circle', coords: [220, 160, 7], preFillColor: 'blue' },
+			{ name: '7', shape: 'circle', coords: [175, 135, 7], preFillColor: 'blue' },
+			{ name: '8', shape: 'circle', coords: [90, 110, 7], preFillColor: 'blue' },
+			{ name: '9', shape: 'circle', coords: [160, 75, 7], preFillColor: 'blue' },
+			{ name: '10', shape: 'circle', coords: [217, 25, 7], preFillColor: 'blue' },
 		],
 	};
-	const width_window = 430;
+
+	const width_window = 350;
+
 	return (
 		<>
 			<section className='flex flex-col h-dvh'>
 				<main>
-					<span>
+					{/* <span>
 						pitch: {pitch}, yaw: {yaw}, transition: "0"
-					</span>
+					</span> */}
 					<Pannellum
 						ref={panImage}
 						width='100%'
-						height='400px'
+						height='500px'
 						image={scenesArray[currentScene].scenePanoImg + '?resize=800%2C600'}
 						pitch={10}
-						yaw={180}
-						hfov={110}
+						yaw={380}
+						hfov={80}
+						showControls={true}
 						autoLoad
+						autoRotate={6} // it might cuase an error.
 						showZoomCtrl={false}
-						onMouseup={(event: any) => {
-							setPitch(panImage.current?.getViewer().mouseEventToCoords(event)[0]);
-							setYaw(panImage.current?.getViewer().mouseEventToCoords(event)[1]);
+						orientationOnByDefault={true}
+						onMouseup={(event) => {
+							setPitch(panImage.current.getViewer().mouseEventToCoords(event)[0]);
+							setYaw(panImage.current.getViewer().mouseEventToCoords(event)[1]);
 						}}>
-						{scenesArray[currentScene].hotSpotsArr.map((hotSpot) => {
-							return <Pannellum.Hotspot type='custom' pitch={hotSpot.pitch} yaw={hotSpot.yaw} tooltip={hotspotIcon} handleClick={(_evt: any, _name: any) => setCurrentScene(parseInt(hotSpot.transition))} name='image info' />;
+						{scenesArray[currentScene].hotSpotsArr.map((hotSpot, index) => {
+							return (
+								<Pannellum.Hotspot
+									key={`hs${index}`}
+									type="custom"
+									pitch={hotSpot.pitch}
+									yaw={hotSpot.yaw}
+									tooltip={hotspotIcon}
+									handleClick={(evt, name) =>
+										setCurrentScene(Number(hotSpot.transition))
+									}
+									name={`hs${index}`}
+								/>
+							)
 						})}
 					</Pannellum>
 				</main>
-				<aside className='flex flex-col min-h-fit max-w-fit'>
-					<div className='bg-red-500'>{imgCoords}</div>
-					<ImageMapper className={'w-dvw'} src={Image} width={width_window} onImageClick={(evt: { pageX: string; pageY: string }) => setImgCoords('' + evt.pageX + ', ' + evt.pageY)} onClick={(area: { name: string }) => setCurrentScene(parseInt(area.name))} map={map} />
+				<aside className='flex flex-col justify-center items-center bg-white h-dvh w-dvw'>
+					<ImageMapper className={''} src={Image} width={width_window} onImageClick={(evt) => console.log(`${evt.pageX}, ${evt.pageY}`)} onClick={(area) => setCurrentScene(parseInt(area.name))} map={map} />
 				</aside>
 			</section>
 		</>

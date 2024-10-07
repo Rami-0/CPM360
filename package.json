@@ -7,7 +7,7 @@
     "dev": "vite --host",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "start": "vite preview"
+    "start": "vite preview --host"
   },
   "dependencies": {
     "pannellum-react": "^1.2.4",
@@ -15,7 +15,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-image-mapper": "^0.0.15",
-    "react-pannellum": "^0.2.16",
+    "react-pannellum": "0.1.15",
     "react-scripts": "^5.0.1"
   },
   "devDependencies": {
