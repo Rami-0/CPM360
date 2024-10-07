@@ -23,8 +23,8 @@ function TestBox() {
 	const hotspotIcon = (hotSpotDiv, index) => {
 		const image = document.createElement('img');
 		image.classList.add('image');
-		image.setAttribute('width', '40');
-		image.setAttribute('height', '40');
+		image.setAttribute('width', '30');
+		image.setAttribute('height', '30');
 		switch (index) {
 			case '0':
 				image.setAttribute('src', hallway);
@@ -127,7 +127,7 @@ function TestBox() {
 						})}
 					</Pannellum>
 				</main>
-				<aside className='flex flex-col justify-center items-center bg-white h-dvh w-dvw'>
+				<aside className='flex flex-col justify-top items-center bg-white h-dvh w-dvw pt-5'>
 					<ImageMapper className={''} src={Image} width={width_window} onImageClick={(evt) => console.log(`${evt.pageX}, ${evt.pageY}`)} onClick={(area) => setCurrentScene(parseInt(area.name))} map={map} />
 				</aside>
 			</section>
