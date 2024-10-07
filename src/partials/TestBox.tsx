@@ -4,19 +4,68 @@ import { Pannellum } from 'pannellum-react';
 import React, { useState, useRef } from 'react';
 import ImageMapper from 'react-image-mapper';
 
+import bathroom from '../assets/bathroom.png';
+import bedroom from '../assets/bedroom.png';
+import hallway from '../assets/hallway.png';
+import kitchen from '../assets/kitchen.png';
+import livingRoom from '../assets/livingroom.png';
+import terrace from '../assets/terrace.png';
+import toilet from '../assets/toilet.png';
+import wardrobe from '../assets/wardrobe.png';
+// import bathroom from '../assets/bathroom.png';
+
 function TestBox() {
 	const [currentScene, setCurrentScene] = useState(0);
 	const [yaw, setYaw] = useState(0);
 	const [pitch, setPitch] = useState(0);
 	const panImage = useRef(null);
 
-	const hotspotIcon = (hotSpotDiv) => {
+	const hotspotIcon = (hotSpotDiv, index) => {
 		const image = document.createElement('img');
 		image.classList.add('image');
-		image.setAttribute('width', '30');
-		image.setAttribute('height', '30');
-		image.setAttribute('src', 'https://i.postimg.cc/cHDx7cdb/image.png');
+		image.setAttribute('width', '60');
+		image.setAttribute('height', '60');
+		switch (index) {
+			case '0':
+				image.setAttribute('src', hallway);
+				break;
+			case '1':
+				image.setAttribute('src', wardrobe);
+				break;
+			case '2':
+				image.setAttribute('src', bathroom);
+				break;
+			case '3':
+				image.setAttribute('src', toilet);
+				break;
+			case '4':
+				image.setAttribute('src', bedroom);
+				break;
+			case '5':
+				image.setAttribute('src', kitchen);
+				break;
+			case '6':
+				image.setAttribute('src', hallway);
+				break;
+			case '7':
+				image.setAttribute('src', hallway);
+				break;
+			case '8':
+				image.setAttribute('src', livingRoom);
+				break;
+			case '9':
+				image.setAttribute('src', bedroom);
+				break;
+			case '10':
+				image.setAttribute('src', terrace);
+				break;
+			default:
+				image.setAttribute('src', 'https://i.postimg.cc/cHDx7cdb/image.png');
+				break;
+		}
 		hotSpotDiv.appendChild(image);
+		// Example of using the index: you can customize the image or any other behavior based on the index
+		console.log(`Hotspot index: ${index}`);
 	};
 
 	const map = {
@@ -66,14 +115,13 @@ function TestBox() {
 							return (
 								<Pannellum.Hotspot
 									key={`hs${index}`}
-									type="custom"
+									type={`${hotSpot.type}`}
 									pitch={hotSpot.pitch}
 									yaw={hotSpot.yaw}
-									tooltip={hotspotIcon}
-									handleClick={(evt, name) =>
-										setCurrentScene(Number(hotSpot.transition))
-									}
+									tooltip={(hotSpotDiv) => hotspotIcon(hotSpotDiv, hotSpot.transition)} // Pass the index here
+									handleClick={(evt, name) => setCurrentScene(Number(hotSpot.transition))}
 									name={`hs${index}`}
+									text={hotSpot.text}
 								/>
 							)
 						})}
