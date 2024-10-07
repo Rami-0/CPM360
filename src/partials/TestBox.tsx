@@ -23,8 +23,8 @@ function TestBox() {
 	const hotspotIcon = (hotSpotDiv, index) => {
 		const image = document.createElement('img');
 		image.classList.add('image');
-		image.setAttribute('width', '60');
-		image.setAttribute('height', '60');
+		image.setAttribute('width', '40');
+		image.setAttribute('height', '40');
 		switch (index) {
 			case '0':
 				image.setAttribute('src', hallway);
