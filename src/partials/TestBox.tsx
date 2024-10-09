@@ -21,53 +21,84 @@ function TestBox() {
 	const panImage = useRef(null);
 
 	const hotspotIcon = (hotSpotDiv, index) => {
-		const image = document.createElement('img');
-		image.classList.add('image');
-		image.setAttribute('width', '30');
-		image.setAttribute('height', '30');
+
+    const nameDiv = document.createElement('div');
+    nameDiv.classList.add('name');
+    nameDiv.classList.add('bg-black');
+    nameDiv.classList.add('text-white');
+    nameDiv.classList.add('rounded-lg');
+    nameDiv.classList.add('h-fit');
+
+    const image = document.createElement("img");
+    image.classList.add("image");
+    image.setAttribute("width", "30");
+    image.setAttribute("height", "30");
+    image.setAttribute(
+      "src",
+      "https://img.icons8.com/material/4ac144/256/camera.png"
+    );
+
+    nameDiv.appendChild(image);
+
+		// Set the name based on the index
 		switch (index) {
 			case '0':
-				image.setAttribute('src', hallway);
+				nameDiv.textContent = 'Холл';
+				// image.setAttribute('src', hallway);
 				break;
 			case '1':
-				image.setAttribute('src', wardrobe);
+				nameDiv.textContent = 'Гардероб';
+				// image.setAttribute('src', wardrobe);
 				break;
 			case '2':
-				image.setAttribute('src', bathroom);
+				nameDiv.textContent = 'Ванная';
+				// image.setAttribute('src', bathroom);
 				break;
 			case '3':
-				image.setAttribute('src', toilet);
+				nameDiv.textContent = 'Туалет';
+				// image.setAttribute('src', toilet);
 				break;
 			case '4':
-				image.setAttribute('src', bedroom);
+				nameDiv.textContent = 'Спальня';
+				// image.setAttribute('src', bedroom);
 				break;
 			case '5':
-				image.setAttribute('src', kitchen);
+				nameDiv.textContent = 'Кухня';
+				// image.setAttribute('src', kitchen);
 				break;
 			case '6':
-				image.setAttribute('src', hallway);
+				nameDiv.textContent = 'Холл';
+				// image.setAttribute('src', hallway);
 				break;
 			case '7':
-				image.setAttribute('src', hallway);
+				nameDiv.textContent = 'Коридор';
+				// image.setAttribute('src', hallway);
 				break;
 			case '8':
-				image.setAttribute('src', livingRoom);
+				nameDiv.textContent = 'Гостиная';
+				// image.setAttribute('src', livingRoom);
 				break;
 			case '9':
-				image.setAttribute('src', bedroom);
+				nameDiv.textContent = 'Спальня';
+				// image.setAttribute('src', bedroom);
 				break;
 			case '10':
-				image.setAttribute('src', terrace);
+				nameDiv.textContent = 'Балкон';
+				// image.setAttribute('src', terrace);
 				break;
 			default:
-				image.setAttribute('src', 'https://i.postimg.cc/cHDx7cdb/image.png');
+				nameDiv.textContent = 'Unknown Location';
+				// image.setAttribute('src', 'https://i.postimg.cc/cHDx7cdb/image.png');
 				break;
 		}
-		hotSpotDiv.appendChild(image);
+	
+		// Append the nameDiv to the hotSpotDiv instead of the image
+		hotSpotDiv.appendChild(nameDiv);
+		
 		// Example of using the index: you can customize the image or any other behavior based on the index
 		console.log(`Hotspot index: ${index}`);
 	};
-
+	
 	const map = {
 		name: 'my-map',
 		areas: [
